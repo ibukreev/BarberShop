@@ -1,0 +1,58 @@
+<h2>Записаться</h2>
+<p>Мы будем рады видеть вас....</p>
+
+<form action="/visit" method="POST" role="form">
+  <div class="form-group">
+    <label>Ваше имя:</label>
+    <input name="username" type="text" class="form-control"  placeholder="Введите ваше имя" value="<%=@username%>">
+  </div>
+
+  <div class="form-group">
+    <label>Ваш телефон:</label>
+    <input name="phone" type="text" class="form-control"  placeholder="Введите ваш телефон" value="<%=@phone%>">
+  </div>
+
+  <div class="form-group">
+    <label>Когда вас ждать?</label>
+    <input name="datetime" type="text" class="form-control"  placeholder="Введите дату и время" value="<%=@datetime%>">
+  </div>
+
+  <div class="form-group"> 
+    <label>Выберите парикмахера:</label>
+    <select class="form-control" name="pick_a_barber">
+      <option>Оля</option>
+      <option>Марк</option>
+      <option>Яна</option>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label>Хотите покраситься, выбирите цвет заранее:</label>
+    <select name="colorpicker">
+      <option value="#7bd148">Зеленый</option>
+      <option value="#5484ed">Голубой</option>
+      <option value="#a4bdfc">Синий</option>
+      <option value="#46d6db">Бирюзовый</option>
+      <option value="#7ae7bf">Светло зеленый</option>
+      <option value="#51b749">Темно зеленый</option>
+      <option value="#fbd75b">Желтый</option>
+      <option value="#ffb878">Оранжевый</option>
+      <option value="#ff887c">Красный</option>
+      <option value="#dc2127">Темно красный</option>
+      <option value="#dbadff">Фиолетовый</option>
+      <option value="#e1e1e1">Серый</option>
+    </select>
+  </div>
+  
+
+  <button type="submit" class="btn btn-primary">Записаться</button>
+</form>
+
+<script type="text/javascript">
+
+$(function() {
+  $('select[name="colorpicker"]').simplecolorpicker();
+})
+
+</script>
