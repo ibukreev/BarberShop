@@ -1,4 +1,3 @@
-sinatra-bootstrap-clean
+BarberShop  
 =======================
-
-Cleaned version of https://github.com/bootstrap-ruby/sinatra-bootstrap
+Study project on Sinatra 
