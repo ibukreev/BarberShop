@@ -8,14 +8,15 @@ require 'sqlite3'
 
 configure do
 	@db = SQLite3::Database.new 'babershop.db'
-	@db.execute 'CREATE TABLE IF NOT EXISTS Users (
-		Id        INTEGER PRIMARY KEY,
-		name      TEXT,
-		phone     TEXT,
-		barber    TEXT,
-		color     TEXT,
-		datestamp TEXT
-	)'
+	@db.execute 'CREATE TABLE IF NOT EXISTS 
+		"Users" (
+			id        INTEGER PRIMARY KEY,
+			name      TEXT,
+			phone     TEXT,
+			barber    TEXT,
+			color     TEXT,
+			datestamp TEXT
+		)'
 end
 
 get '/' do
