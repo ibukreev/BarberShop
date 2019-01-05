@@ -3,8 +3,20 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'pony' 
+require 'sqlite3'
 
 
+configure do
+	@db = SQLite3::Database.new 'babershop.db'
+	@db.execute 'CREATE TABLE IF NOT EXISTS Users (
+		Id        INTEGER PRIMARY KEY,
+		name      TEXT,
+		phone     TEXT,
+		barber    TEXT,
+		color     TEXT,
+		datestamp TEXT
+	)'
+end
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School!!!</a>"			
@@ -26,14 +38,14 @@ post '/visit' do
 	@username      = params[:username] 
 	@phone	       = params[:phone]
 	@datetime      = params[:datetime]
-	@pick_a_barber = params[:pick_a_barber]
+	@barber = params[:pick_a_barber]
 	@color 		   = params[:colorpicker]
 	
 	hh = { :username => 'Введите имя',
 		   :phone => 'Введите номер телефона',
 		   :datetime => 'Введите дату и время' }
 
-	# Первый вариант вызова ошибки
+	# Первый вариант валидации
 	#hh.each do |key, value|
 	#	if params[key] == ''
 	#		@error = hh[key]
@@ -53,7 +65,7 @@ post '/visit' do
     #f.close
 
 	#erb :visit
-	erb "Ok! Клиент: #{@username}, Контакт: #{@phone}, Время и дата: #{@datetime}, Парикмахер: #{@pick_a_barber}, Цвет: #{@color}\n"
+	erb "Ok! Клиент: #{@username}, Контакт: #{@phone}, Время и дата: #{@datetime}, Парикмахер: #{@barber}, Цвет: #{@color}\n"
 end 
 
 post '/contacts' do 
