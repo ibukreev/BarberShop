@@ -6,12 +6,16 @@ require 'pony'
 require 'sqlite3'
 
 
+def get_db 
+	return SQLite3::Database.new 'babershop.db'
+end
+
 configure do
-	@db = SQLite3::Database.new 'babershop.db'
-	@db.execute 'CREATE TABLE IF NOT EXISTS 
-		"Users" (
+	db = get_db
+	db.execute 'CREATE TABLE IF NOT EXISTS 
+		Users (
 			id        INTEGER PRIMARY KEY,
-			name      TEXT,
+			username  TEXT,
 			phone     TEXT,
 			barber    TEXT,
 			color     TEXT,
@@ -39,7 +43,7 @@ post '/visit' do
 	@username      = params[:username] 
 	@phone	       = params[:phone]
 	@datetime      = params[:datetime]
-	@barber = params[:pick_a_barber]
+	@barber        = params[:pick_a_barber]
 	@color 		   = params[:colorpicker]
 	
 	hh = { :username => 'Введите имя',
@@ -64,6 +68,19 @@ post '/visit' do
 	#f = File.open './public/users.txt', 'a'
     #f.write "Клиент: #{@username}, Контакт: #{@phone}, Время и дата: #{@datetime}, Парикмахер: #{@pick_a_barber}, Цвет: #{@color}\n"
     #f.close
+
+	db = get_db
+	db.execute 'insert into 
+		Users
+		(
+			username,
+			phone,
+			barber,
+			color, 
+			datestamp
+		) 
+		values (?, ?, ?, ?, ?)', [@username, @phone, @barber, @color, @datestamp] 
+
 
 	#erb :visit
 	erb "Ok! Клиент: #{@username}, Контакт: #{@phone}, Время и дата: #{@datetime}, Парикмахер: #{@barber}, Цвет: #{@color}\n"
@@ -102,3 +119,4 @@ post '/contacts' do
 
 	erb :contacts
 end
+
