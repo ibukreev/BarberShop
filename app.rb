@@ -7,7 +7,10 @@ require 'sqlite3'
 
 
 def get_db 
-	return SQLite3::Database.new 'babershop.db'
+	return SQLite3::Database.new 'barbershop.db'
+	
+	db.results_as_hash = true
+	return db
 end
 
 configure do
@@ -79,7 +82,7 @@ post '/visit' do
 			color, 
 			datestamp
 		) 
-		values (?, ?, ?, ?, ?)', [@username, @phone, @barber, @color, @datestamp] 
+		values (?, ?, ?, ?, ?)', [@username, @phone, @barber, @color, @datetime] 
 
 
 	#erb :visit
@@ -119,4 +122,3 @@ post '/contacts' do
 
 	erb :contacts
 end
-
