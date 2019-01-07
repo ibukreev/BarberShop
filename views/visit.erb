@@ -1,7 +1,7 @@
 <h2>Записаться</h2>
 <p>Мы будем рады видеть вас....</p>
 
-<form action="/visit" method="POST" role="form">
+<form action="/visit" method="POST" role="form" autocomplete="off">
   <div class="form-group">
     <label>Ваше имя:</label>
     <input name="username" type="text" class="form-control"  placeholder="Введите ваше имя" value="<%=@username%>">
@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <label>Когда вас ждать?</label>
-    <input name="datetime" type="text" class="form-control"  placeholder="Введите дату и время" value="<%=@datetime%>">
+    <input id="datetimepicker"  name="datetime" type="text" class="form-control"  placeholder="Введите дату и время" value="<%=@datetime%>">
   </div>
 
   <div class="form-group"> 
@@ -53,6 +53,8 @@
 
 $(function() {
   $('select[name="colorpicker"]').simplecolorpicker();
+  $('#datetimepicker').datetimepicker();
+  $.datetimepicker.setLocale('ru');
 })
-
+  
 </script>
