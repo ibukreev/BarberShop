@@ -8,9 +8,6 @@ require 'sqlite3'
 
 def get_db 
 	return SQLite3::Database.new 'barbershop.db'
-	
-	db.results_as_hash = true
-	return db
 end
 
 configure do
@@ -41,6 +38,13 @@ end
 get '/contacts' do 
 	erb :contacts 
 end 
+
+get '/showusers' do
+	db = get_db
+	db.results_as_hash = true
+	@results = db.execute 'select * from Users order by id desc'
+	erb :showusers
+end
 
 post '/visit' do
 	@username      = params[:username] 
