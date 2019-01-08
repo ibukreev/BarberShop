@@ -32,7 +32,7 @@ configure do
 	db = get_db
 	db.execute 'CREATE TABLE IF NOT EXISTS 
 		Users (
-			id        INTEGER PRIMARY KEY,
+			id        INTEGER PRIMARY KEY AUTOINCREMENT,
 			username  TEXT,
 			phone     TEXT,
 			barber    TEXT,
