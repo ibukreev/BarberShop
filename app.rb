@@ -116,7 +116,7 @@ post '/visit' do
 		values (?, ?, ?, ?, ?)', [@username, @phone, @barber, @color, @datetime] 
 
 	#erb :visit
-	erb "Ok! Клиент: #{@username}, Контакт: #{@phone}, Время и дата: #{@datetime}, Парикмахер: #{@barber}, Цвет: #{@color}\n"
+	erb "<h3>Спасибо, вы записались</h3>"
 end 
 
 post '/contacts' do 
