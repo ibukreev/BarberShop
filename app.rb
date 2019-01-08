@@ -6,8 +6,26 @@ require 'pony'
 require 'sqlite3'
 
 
+def is_barber_exsists? db, name
+	db.execute('select * from Barbers where name=?', [name]).length > 0 
+end
+
+def seed_db db, barbers
+	barbers.each do |barber|
+		if !is_barber_exsists? db, barber
+			db.execute 'insert into Barbers (name) values (?)', [barber]
+		end
+	end
+end
+
 def get_db 
 	return SQLite3::Database.new 'barbershop.db'
+end
+
+before do
+	db = get_db
+	db.results_as_hash = true
+	@barbers = db.execute 'select * from Barbers'
 end
 
 configure do
@@ -21,6 +39,14 @@ configure do
 			color     TEXT,
 			datestamp TEXT
 		)'
+
+	db.execute 'CREATE TABLE IF NOT EXISTS
+		Barbers (
+			id        INTEGER PRIMARY KEY,
+			name  	  TEXT
+		)'
+	
+	seed_db db, ['Оля', 'Марк', 'Яна', 'Вася']
 end
 
 get '/' do
@@ -43,6 +69,7 @@ get '/showusers' do
 	db = get_db
 	db.results_as_hash = true
 	@results = db.execute 'select * from Users order by id desc'
+
 	erb :showusers
 end
 
@@ -87,7 +114,6 @@ post '/visit' do
 			datestamp
 		) 
 		values (?, ?, ?, ?, ?)', [@username, @phone, @barber, @color, @datetime] 
-
 
 	#erb :visit
 	erb "Ok! Клиент: #{@username}, Контакт: #{@phone}, Время и дата: #{@datetime}, Парикмахер: #{@barber}, Цвет: #{@color}\n"
